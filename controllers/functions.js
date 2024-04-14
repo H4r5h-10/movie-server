@@ -106,4 +106,23 @@ export const postMovie = async (req, res) => {
     })
   }
 };
+export const putMovie = async (req, res) => {
+  const { userEmail, movieId, movieType } = req.body;
+  await Movie.updateOne({userEmail, movieId, movieType},{
+    $set: {movieType: movieType=='watchlist'?'watched':'watchlist'}
+  });
+    res.json({
+      success: true,
+      message: "updated type"
+    })
+};
+export const deleteMovie = async (req, res) => {
+  const { userEmail, movieId } = req.body;
+  await Movie.deleteOne({userEmail, movieId});
+    res.json({
+      success: true,
+      message: "deleted movie"
+    })
+
+};
 
