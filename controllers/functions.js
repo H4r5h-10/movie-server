@@ -70,7 +70,7 @@ export const logout = (req, res) => {
 };
 export const fetchWatched = async (req, res) => {
   const data = await Movie.find({
-    userEmail: req.body.userEmail,
+    userEmail: req.params.email,
     movieType: "watched",
   });
   res.json({
@@ -80,12 +80,12 @@ export const fetchWatched = async (req, res) => {
 };
 export const fetchWatchlist = async (req, res) => {
   const data = await Movie.find({
-    userEmail: req.body.userEmail,
+    userEmail: req.params.email,
     movieType: "watchlist",
   });
   res.json({
     success: true,
-    data,
+    data
   });
 };
 export const postMovie = async (req, res) => {

@@ -4,8 +4,8 @@ import {deleteMovie, fetchWatched, fetchWatchlist, postMovie, putMovie}  from '.
 
 const router = express.Router();
 
-router.get('/watched', fetchWatched);
-router.get('/watchlist', fetchWatchlist);
+router.get('/watched/:email', fetchWatched);
+router.get('/watchlist/:email', fetchWatchlist);
 router.post('/addmovie', postMovie);
 router.put('/changetype', putMovie);
 router.delete('/deletemovie', deleteMovie);
