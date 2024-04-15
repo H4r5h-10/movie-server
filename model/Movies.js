@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 
 const Schema = new mongoose.Schema({
-    userEmail: String,
-    movieTitle: String,
-    moviePosterPath: String,
-    movieId: Number,
-    movieType: String,
+    movie: Object,
+    user: Object,
+    movieType: String
 });
 
 const Movie = mongoose.model("Movie", Schema);

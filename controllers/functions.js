@@ -70,7 +70,7 @@ export const logout = (req, res) => {
 };
 export const fetchWatched = async (req, res) => {
   const data = await Movie.find({
-    userEmail: req.params.email,
+    user: req.user,
     movieType: "watched",
   });
   res.json({
@@ -80,7 +80,7 @@ export const fetchWatched = async (req, res) => {
 };
 export const fetchWatchlist = async (req, res) => {
   const data = await Movie.find({
-    userEmail: req.params.email,
+    user: req.user,
     movieType: "watchlist",
   });
   res.json({
@@ -89,11 +89,11 @@ export const fetchWatchlist = async (req, res) => {
   });
 };
 export const postMovie = async (req, res) => {
-  const { userEmail, movieTitle, moviePosterPath, movieId, movieType } = req.body;
-  const check = await Movie.findOne({userEmail, movieId, movieType});
+  const { movie , movieType } = req.body;
+  const check = await Movie.findOne({user:req.user,movie, movieType});
   if(!check)
   {
-    var movie = await Movie.create({userEmail, movieTitle, moviePosterPath, movieId, movieType });
+    var temp = await Movie.create({user: req.user,movie, movieType });
     res.json({
       success: true,
       movie
@@ -107,8 +107,8 @@ export const postMovie = async (req, res) => {
   }
 };
 export const putMovie = async (req, res) => {
-  const { userEmail, movieId, movieType } = req.body;
-  await Movie.updateOne({userEmail, movieId, movieType},{
+  const { movie, movieType } = req.body;
+  await Movie.updateOne({user: req.user, movie, movieType},{
     $set: {movieType: movieType=='watchlist'?'watched':'watchlist'}
   });
     res.json({
@@ -117,8 +117,8 @@ export const putMovie = async (req, res) => {
     })
 };
 export const deleteMovie = async (req, res) => {
-  const { userEmail, movieId } = req.body;
-  await Movie.deleteOne({userEmail, movieId});
+  const { movie } = req.body;
+  await Movie.deleteOne({user: req.user, movie});
     res.json({
       success: true,
       message: "deleted movie"
