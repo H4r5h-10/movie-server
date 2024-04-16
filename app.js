@@ -3,8 +3,12 @@ import express from "express";
 import connectDB from "./data/database.js";
 import cookieParser from "cookie-parser";
 import cors from 'cors'
+import { config } from "dotenv";
 
 const app = express();
+config({
+  path: './data/config.env',
+})
 
 connectDB();
 
