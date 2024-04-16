@@ -10,7 +10,7 @@ export const isAuthenticated = async  (req,res,next)=>{
             message: "Login First"
         })
     }
-    const decoded = jwt.verify(token,process.env.APP_SECRET_KEY);
+    const decoded = jwt.verify(token,"UIBUIBIBNBIKNUJNIWEIKIFNENB");
     req.user = await User.findById(decoded._id);
     next();
 }

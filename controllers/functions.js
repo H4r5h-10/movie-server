@@ -46,7 +46,7 @@ export const login = async (req, res, next) => {
       message: "Wrong email or password",
     });
   } else {
-    const data = bcrypt.compare(password, user.password);
+    const data = await bcrypt.compare(password, user.password);
     if (data) {
       sendCookie(user, res, "Logged In");
     } else {
@@ -117,10 +117,8 @@ export const putMovie = async (req, res) => {
     })
 };
 export const deleteMovie = async (req, res) => {
-  console.log(req.body);
   const { movie } = req.body;
   const data = await Movie.findOne({user: req.user, movie});
-  console.log(data);
   await Movie.deleteOne({user: req.user, movie});
     res.json({
       success: true,
