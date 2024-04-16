@@ -65,7 +65,7 @@ export const getData = (req, res) => {
 };
 export const logout = (req, res) => {
   // const {token} = req.cookies;
-  res.cookie("token", "", { expire: new Date(Date.now()) });
+  res.cookie("token", "", { expires: new Date(Date.now())});
   res.json({ success: true, message: "Logged out" });
 };
 export const fetchWatched = async (req, res) => {
@@ -90,7 +90,7 @@ export const fetchWatchlist = async (req, res) => {
 };
 export const postMovie = async (req, res) => {
   const { movie , movieType } = req.body;
-  const check = await Movie.findOne({user:req.user,movie, movieType});
+  const check = await Movie.findOne({user:req.user,movie});
   if(!check)
   {
     var temp = await Movie.create({user: req.user,movie, movieType });
