@@ -96,7 +96,7 @@ export const postMovie = async (req, res) => {
     var temp = await Movie.create({user: req.user,movie, movieType });
     res.json({
       success: true,
-      movie
+      temp
     })
   }
   else{
@@ -107,9 +107,9 @@ export const postMovie = async (req, res) => {
   }
 };
 export const putMovie = async (req, res) => {
-  const { movie, movieType } = req.body;
-  await Movie.updateOne({user: req.user, movie, movieType},{
-    $set: {movieType: movieType=='watchlist'?'watched':'watchlist'}
+  const { movie, type } = req.body;
+  await Movie.updateOne({user: req.user, movie, movieType: type},{
+    $set: {movieType: type=='watchlist'?'watched':'watchlist'}
   });
     res.json({
       success: true,
@@ -117,7 +117,10 @@ export const putMovie = async (req, res) => {
     })
 };
 export const deleteMovie = async (req, res) => {
+  console.log(req.body);
   const { movie } = req.body;
+  const data = await Movie.findOne({user: req.user, movie});
+  console.log(data);
   await Movie.deleteOne({user: req.user, movie});
     res.json({
       success: true,
