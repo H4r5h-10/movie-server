@@ -21,11 +21,11 @@ export const getUserByID = async (req, res) => {
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
   const data = await bcryptjs.hashSync(password, 10);
-  var user = await User.findOne({ email });
+  var user = await User.findOne({ email: email.toLowerCase() });
   if (!user) {
     user = await User.create({
-      name,
-      email,
+      name: name.toLowerCase(),
+      email: email.toLowerCase(),
       password: data,
     });
     sendCookie(user, res, "Registered");
@@ -38,7 +38,7 @@ export const register = async (req, res) => {
 };
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email: email }).select("+password");
+  const user = await User.findOne({ email: email.toLowerCase() }).select("+password");
   // console.log(user);
   if (!user) {
     res.json({
@@ -63,11 +63,7 @@ export const getData = (req, res) => {
     user: req.user,
   });
 };
-export const logout = (req, res) => {
-  // const {token} = req.cookies;
-  res.cookie("token", "", { expires: new Date(Date.now())});
-  res.json({ success: true, message: "Logged out" });
-};
+
 export const fetchWatched = async (req, res) => {
   const data = await Movie.find({
     user: req.user,
