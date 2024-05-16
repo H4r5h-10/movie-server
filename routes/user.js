@@ -9,7 +9,6 @@ router.get('/userid/:id', getUserByID);
 router.post("/register", register);
 router.post("/login", login);
 router.get("/me",isAuthenticated, getData);
-router.get("/logout", logout);
 
 
 export default router;
