@@ -7,7 +7,8 @@ export const sendCookie = (user,res, message, statusCode = 200) => {
     domain: "moviemeter-sigma.vercel.app",
       maxAge: 2*24*60*60*1000,
       sameSite: 'none',
-      secure: true
+      secure: true,
+    httpOnly: true
     })
     .json({
       success: true,
