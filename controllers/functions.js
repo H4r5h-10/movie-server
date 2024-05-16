@@ -1,6 +1,6 @@
 import User from "../model/User.js";
 import Movie from "../model/Movies.js";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import sendCookie from "./features.js";
 
 export const getAllUsers = async (req, res) => {
@@ -20,7 +20,7 @@ export const getUserByID = async (req, res) => {
 };
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
-  const data = await bcrypt.hash(password, 10);
+  const data = await bcryptjs.hashSync(password, 10);
   var user = await User.findOne({ email });
   if (!user) {
     user = await User.create({
@@ -46,7 +46,7 @@ export const login = async (req, res, next) => {
       message: "Wrong email or password",
     });
   } else {
-    const data = await bcrypt.compare(password, user.password);
+    const data = await bcryptjs.compareSync(password, user.password);
     if (data) {
       sendCookie(user, res, "Logged In");
     } else {
