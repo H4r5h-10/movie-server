@@ -1,15 +1,19 @@
 // import cookieParser from "cookie-parser";
 import express from "express";
-
 import cookieParser from "cookie-parser";
 import cors from 'cors'
-import userRouter from './routes/user.js'
-import movieRouter from './routes/movies.js'
+import userRouter from '../routes/user.js'
+import movieRouter from '../routes/movies.js'
+import connectDB from "../data/database.js";
 // import { config } from "dotenv";
 
 export const app = express();
 
+connectDB();
 
+app.listen(4000, (req,res)=>{
+    console.log("Server Running")
+  })
 app.use(cookieParser());
 app.use(express.json());
 app.use(
