@@ -10,11 +10,9 @@ import connectDB from "../data/database.js";
 export const app = express();
 
 connectDB();
-const allowedOrigin ="https://moviemeter-sigma.vercel.app"
+// const allowedOrigin ="https://moviemeter-sigma.vercel.app"
 
-app.listen(4000, (req,res)=>{
-    console.log("Server Running")
-  })
+
 app.use(cookieParser());
 app.use(express.json());
 // app.use((req, res, next) => {
@@ -48,3 +46,6 @@ app.get('/', (req,res)=>{
 
 
 export default app;
+app.listen(4000, (req,res)=>{
+  console.log("Server Running")
+})
