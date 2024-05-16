@@ -1,10 +1,10 @@
-import userRouter from './routes/user.js'
-import movieRouter from './routes/movies.js'
-import app from './app.js'
 
-app.use("/users",userRouter);
-app.use("/movies",movieRouter);
+import {app} from './app.js'
+import connectDB from "./data/database.js";
 
-app.get('/', (req,res)=>{
-    res.send("<h1>Nice Working</h1>")
-});
+connectDB();
+
+app.listen(4000, (req,res)=>{
+    console.log("Server Running")
+  })
+
